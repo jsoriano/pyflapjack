@@ -1,6 +1,8 @@
 pyflapjack
 ==========
 
+.. image:: https://travis-ci.org/tryagainconcepts/pyflapjack.svg?branch=master
+    :target: https://travis-ci.org/tryagainconcepts/pyflapjack
 
 Flapjack Python API. Supports Flapjack 1.0
 
