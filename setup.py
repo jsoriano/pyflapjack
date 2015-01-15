@@ -10,7 +10,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 install_requires = []
 tests_require = install_requires + [
-    'pytest==2.5.1', 'pytest-cov==1.6']
+    'pytest==2.6.4', 'pytest-cov==1.6', 'mock==1.0.1']
 develop_require = tests_require + [
     'Sphinx>=1.2.1', 'pylint>=1.1.0']
 
