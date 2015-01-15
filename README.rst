@@ -2,7 +2,7 @@ pyflapjack
 ==========
 
 
-Flapjack Python API
+Flapjack Python API. Supports Flapjack 1.0
 
 
 Features
