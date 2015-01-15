@@ -1,2 +1,0 @@
-# pyflapjack
-Flapjack Python API
