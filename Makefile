@@ -38,10 +38,12 @@ lint:
 	pylint --rcfile=.pylint.rc pyflapjack tests
 
 test:
-	py.test -v --cov-report term --cov pyflapjack tests
+	coverage run --source pyflapjack -m py.test
+	@coverage report
 
 coverage:
-	py.test -v --cov-report html --cov pyflapjack tests
+	coverage run --source pyflapjack -m py.test
+	@coverage html
 	@open htmlcov/index.html
 
 docs:
