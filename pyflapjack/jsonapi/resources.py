@@ -23,9 +23,9 @@ class Media(ContactRelatedResource):
     path = 'media'
 
     def __init__(
-            self, type_, address, interval, rollup_threshold, **kwargs):
+            self, type, address, interval, rollup_threshold, **kwargs):
         super(Media, self).__init__(
-            type=type_, address=address, interval=interval,
+            type=type, address=address, interval=interval,
             rollup_threshold=rollup_threshold, **kwargs
         )
 
@@ -41,8 +41,10 @@ class PagerdutyCredentials(ContactRelatedResource):
 
 
 class NotificationRule(ContactRelatedResource):
+    path = 'notification_rules'
+
     def __init__(
-            self, contact_id, entities=None, regex_entities=None, tags=None,
+            self, entities=None, regex_entities=None, tags=None,
             regex_tags=None, time_restrictions=None, unknown_media=None,
             warning_media=None, critical_media=None, unknown_blackhole=None,
             warning_blackhole=None, critical_blackhole=None, **kwargs):
@@ -51,7 +53,6 @@ class NotificationRule(ContactRelatedResource):
             regex_tags=None, time_restrictions=None, unknown_media=None,
             warning_media=None, critical_media=None, unknown_blackhole=None,
             warning_blackhole=None, critical_blackhole=None,
-            contact_id=contact_id
         )
         for k, v in named.iteritems():
             if v is None:
@@ -63,15 +64,15 @@ class NotificationRule(ContactRelatedResource):
 class Entity(Resource):
     path = 'entities'
 
-    def __init__(self, name, **kwargs):
-        super(Entity, self).__init__(name=name, **kwargs)
+    def __init__(self, id, name, **kwargs):
+        super(Entity, self).__init__(id=id, name=name, **kwargs)
 
 
 class Check(Resource):
     path = 'checks'
 
-    def __init__(self, name, **kwargs):
-        super(Check, self).__init__(name=name, **kwargs)
+    def __init__(self, name, entity_id, **kwargs):
+        super(Check, self).__init__(name=name, entity_id=entity_id, **kwargs)
 
 
 class ScheduledMaintenance(Resource):

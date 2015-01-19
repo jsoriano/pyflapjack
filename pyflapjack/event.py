@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from .utils import json, FlapjackError
-import time
+import time as libtime
 
 
 class InvalidFlapjackEvent(FlapjackError):
@@ -13,7 +13,7 @@ class FlapjackEvent(dict):
     TYPES = ('action', 'service')
 
     def __init__(
-            self, entity, check, type_, state, timestamp=None, summary='',
+            self, entity, check, state, summary, type_='service', time=None,
             details='', tags=None, perfdata=''):
         """
         Flapjack Event
@@ -24,7 +24,7 @@ class FlapjackEvent(dict):
         :param str type_: One of 'service' or 'action'
         :param str state:
             One of 'ok', 'warning', 'critical', 'unknown', 'acknowledgement'
-        :param int timestamp: UNIX timestamp of the event's creation
+        :param int time_: UNIX timestamp of the event's creation
         :param str summary:
             The check output in the case of a service event, otherwise a
             message created for an acknowledgement or similar
@@ -42,7 +42,7 @@ class FlapjackEvent(dict):
             raise InvalidFlapjackEvent('tags must be a list')
         super(FlapjackEvent, self).__init__(
             entity=entity, check=check, type=type_, state=state,
-            timestamp=int(timestamp or time.time()), summary=summary,
+            time=int(time or libtime.time()), summary=summary,
             details=details, tags=tags, perfdata=perfdata)
 
     def dumps_json(self):
