@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from pyflapjack.jsonapi.base import Resource, RelationMixin
+from .base import Resource, RelationMixin
 
 
 class Contact(Resource):
@@ -111,3 +111,51 @@ class TestNotification(Resource):
     def __init__(self, summary):
         super(TestNotification, self).__init__(summary=summary)
 
+
+class EntityStatusReport(Resource):
+    path = 'status_report/entities'
+
+
+class CheckStatusReport(Resource):
+    path = 'status_report/checks'
+
+
+class EntityScheduledMaintenanceReport(Resource):
+    path = 'scheduled_maintenance_report/entities'
+
+
+class EntityUnscheduledMaintenanceReport(Resource):
+    path = 'unscheduled_maintenance_report/entities'
+
+
+class CheckScheduledMaintenanceReport(Resource):
+    path = 'scheduled_maintenance_report/checks'
+
+
+class CheckUnScheduledMaintenanceReport(Resource):
+    path = 'unscheduled_maintenance_report/checks'
+
+
+class EntityOutrageReport(Resource):
+    path = 'outage_report/entities'
+
+
+class CheckOutrageReport(Resource):
+    path = 'outage_report/checks'
+
+
+class EntityDowntimeReport(Resource):
+    path = 'downtime_report/entities'
+
+
+class CheckDowntimeReport(Resource):
+    path = 'downtime_report/checks'
+
+
+if __name__ == '__main__':
+    resources = []
+    for key, item in dict(locals()).iteritems():
+        if getattr(item, 'path', None) is not None:
+            resources.append(item.__name__)
+    resources.sort()
+    print ', '.join(resources)

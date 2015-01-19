@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from pyflapjack.jsonapi.errors import ResourceAttributeError
+from .errors import ResourceAttributeError
 
 
 class ResourcePatch(dict):
