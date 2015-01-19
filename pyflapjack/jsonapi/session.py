@@ -3,7 +3,7 @@
 from urlparse import urljoin
 from requests import Session
 from .errors import check_status, ResourceRelationError
-from pyflapjack.jsonapi.base import RelationMixin
+from .base import RelationMixin
 
 
 class FlapjackSession(Session):

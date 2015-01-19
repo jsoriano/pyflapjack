@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from pyflapjack.jsonapi.base import Resource, RelationMixin
+from .base import Resource, RelationMixin
 
 
 class Contact(Resource):
@@ -23,9 +23,9 @@ class Media(ContactRelatedResource):
     path = 'media'
 
     def __init__(
-            self, type_, address, interval, rollup_threshold, **kwargs):
+            self, type, address, interval, rollup_threshold, **kwargs):
         super(Media, self).__init__(
-            type=type_, address=address, interval=interval,
+            type=type, address=address, interval=interval,
             rollup_threshold=rollup_threshold, **kwargs
         )
 
@@ -41,8 +41,10 @@ class PagerdutyCredentials(ContactRelatedResource):
 
 
 class NotificationRule(ContactRelatedResource):
+    path = 'notification_rules'
+
     def __init__(
-            self, contact_id, entities=None, regex_entities=None, tags=None,
+            self, entities=None, regex_entities=None, tags=None,
             regex_tags=None, time_restrictions=None, unknown_media=None,
             warning_media=None, critical_media=None, unknown_blackhole=None,
             warning_blackhole=None, critical_blackhole=None, **kwargs):
@@ -51,7 +53,6 @@ class NotificationRule(ContactRelatedResource):
             regex_tags=None, time_restrictions=None, unknown_media=None,
             warning_media=None, critical_media=None, unknown_blackhole=None,
             warning_blackhole=None, critical_blackhole=None,
-            contact_id=contact_id
         )
         for k, v in named.iteritems():
             if v is None:
@@ -63,15 +64,15 @@ class NotificationRule(ContactRelatedResource):
 class Entity(Resource):
     path = 'entities'
 
-    def __init__(self, name, **kwargs):
-        super(Entity, self).__init__(name=name, **kwargs)
+    def __init__(self, id, name, **kwargs):
+        super(Entity, self).__init__(id=id, name=name, **kwargs)
 
 
 class Check(Resource):
     path = 'checks'
 
-    def __init__(self, name, **kwargs):
-        super(Check, self).__init__(name=name, **kwargs)
+    def __init__(self, name, entity_id, **kwargs):
+        super(Check, self).__init__(name=name, entity_id=entity_id, **kwargs)
 
 
 class ScheduledMaintenance(Resource):
@@ -111,3 +112,51 @@ class TestNotification(Resource):
     def __init__(self, summary):
         super(TestNotification, self).__init__(summary=summary)
 
+
+class EntityStatusReport(Resource):
+    path = 'status_report/entities'
+
+
+class CheckStatusReport(Resource):
+    path = 'status_report/checks'
+
+
+class EntityScheduledMaintenanceReport(Resource):
+    path = 'scheduled_maintenance_report/entities'
+
+
+class EntityUnscheduledMaintenanceReport(Resource):
+    path = 'unscheduled_maintenance_report/entities'
+
+
+class CheckScheduledMaintenanceReport(Resource):
+    path = 'scheduled_maintenance_report/checks'
+
+
+class CheckUnScheduledMaintenanceReport(Resource):
+    path = 'unscheduled_maintenance_report/checks'
+
+
+class EntityOutrageReport(Resource):
+    path = 'outage_report/entities'
+
+
+class CheckOutrageReport(Resource):
+    path = 'outage_report/checks'
+
+
+class EntityDowntimeReport(Resource):
+    path = 'downtime_report/entities'
+
+
+class CheckDowntimeReport(Resource):
+    path = 'downtime_report/checks'
+
+
+if __name__ == '__main__':
+    resources = []
+    for key, item in dict(locals()).iteritems():
+        if getattr(item, 'path', None) is not None:
+            resources.append(item.__name__)
+    resources.sort()
+    print ', '.join(resources)

@@ -12,6 +12,7 @@ def test_state():
             check='test',
             type_='action',
             state='fail',
+            summary='test',
         )
 
 
@@ -22,6 +23,7 @@ def test_type():
             check='test',
             type_='hell',
             state='ok',
+            summary='test',
         )
 
 
@@ -32,21 +34,24 @@ def test_tags():
             check='test',
             type_='action',
             state='ok',
-            tags='user, test'
+            tags='user, test',
+            summary='test',
         )
     FlapjackEvent(
         entity='test',
         check='test',
         type_='action',
         state='ok',
-        tags=None
+        tags=None,
+        summary='test',
     )
     FlapjackEvent(
         entity='test',
         check='test',
         type_='action',
         state='ok',
-        tags=[]
+        tags=[],
+        summary='test',
     )
 
 
@@ -56,7 +61,8 @@ def test_dumps_json():
         check='test',
         type_='action',
         state='ok',
-        tags=['user', 'test']
+        tags=['user', 'test'],
+        summary='test',
     )
     print event.dumps_json()
     assert isinstance(event.dumps_json(), str)
@@ -71,11 +77,13 @@ def test_receiver():
         check='ping',
         type_='service',
         state='ok',
+        summary='test',
     ), FlapjackEvent(
         entity='entity2',
         check='ping',
         type_='service',
         state='ok',
+        summary='test',
     )]
     receiver.send_events(*events)
     assert redis.lpush.is_called

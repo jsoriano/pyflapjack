@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from pyflapjack.utils import FlapjackError
+
+
+class FlapjackError(Exception):
+    pass
 
 
 class FlapjackAPIError(FlapjackError):
@@ -46,7 +49,6 @@ _api_error_map = {
 def check_status(expected, resp, **context):
     if resp.status_code == expected:
         return
-    err_cls = None
     try:
         err_cls = _api_error_map[resp.status_code]
     except KeyError:

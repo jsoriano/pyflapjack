@@ -17,4 +17,3 @@ Known bugs
 * Removing contacts' links with PATCH doesn't work. This is a bug with
   flapjack. Upon receiving such a request, flapjack returns a 204, but the
   contact resource remains unchanged.
-
