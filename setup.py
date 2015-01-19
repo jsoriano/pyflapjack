@@ -3,14 +3,17 @@
 from setuptools import setup, find_packages
 
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'
 readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 
-install_requires = []
+install_requires = [
+    'requests==2.5.1',
+    'micromodels==0.5.1',
+]
 tests_require = install_requires + [
-    'pytest==2.6.4', 'pytest-cov==1.6', 'mock==1.0.1']
+    'pytest==2.6.4', 'coverage==3.7.1', 'mock==1.0.1']
 develop_require = tests_require + [
     'Sphinx>=1.2.1', 'pylint>=1.1.0']
 

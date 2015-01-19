@@ -1,16 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-try:
-    import ujson as json
-except ImportError:
-    try:
-        import simplejson as json
-    except ImportError:
-        import json
+from .utils import json, FlapjackError
 import time
 
 
-class InvalidFlapjackEvent(Exception):
+class InvalidFlapjackEvent(FlapjackError):
     pass
 
 
@@ -73,5 +67,7 @@ class FlapjackReceiver(object):
         :param events: one or more instances of :class:`FlapjackEvent`
         :return: length of the channel after the send
         """
+        if not events:
+            return
         return self._redis.lpush(
             self._channel, *[e.dumps_json() for e in events])
