@@ -3,7 +3,7 @@
 from setuptools import setup, find_packages
 
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 readme = open('README.rst').read()
 history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 

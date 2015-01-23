@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from urlparse import urljoin
 from requests import Session
-from .errors import check_status, ResourceRelationError
+from .errors import check_status, ResourceRelationError, FlapjackAPIError
 from .base import RelationMixin
 
 
@@ -42,6 +42,11 @@ class FlapjackAPI(object):
         url = urljoin(self._root, resource_path)
         if ids:
             url = '%s/%s' % (url, ','.join(ids))
+        if len(url) > 1024:
+            raise FlapjackAPIError(
+                'URL too long(%d): ' % len(url) +
+                'Flapjack does not handle URL this long. ' +
+                'Please reduce the number of objects')
         return url
 
     def create(self, *objects):

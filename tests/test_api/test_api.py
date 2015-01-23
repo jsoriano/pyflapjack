@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import pytest
 from pyflapjack.jsonapi import FlapjackAPI, Contact
+from pyflapjack.jsonapi.errors import FlapjackAPIError
 
 
 def get_request_url(mock_request):
@@ -26,6 +28,11 @@ def test_create(api, mock_201, contact):
 def test_delete(api, mock_204):
     api = FlapjackAPI()
     api.delete(Contact, '1')
+
+
+def test_url_too_long(api):
+    with pytest.raises(FlapjackAPIError):
+        api.query(Contact, ','.join(str(i) for i in xrange(1025)))
 
 
 def test_update():
