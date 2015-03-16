@@ -92,6 +92,21 @@ class FlapjackAPI(object):
         objects = resp[resource_cls.path]
         return [resource_cls.from_dict(o) for o in objects]
 
+    def query_report(self, report_cls):
+        """
+        Get objects from report
+
+        :param report_cls:
+            a subclass of :class:`.base.Resource`.
+        :return: instances of the given report class
+        """
+        path = self._resource_url(report_cls.path)
+        resp = self._session.get(path)
+        check_status(200, resp, path=path)
+        resp = resp.json()
+        objects = resp[report_cls.report_path]
+        return [report_cls.from_dict(o) for o in objects]
+
     def update(self, resource_cls, patches, *ids):
         """
         Patch objects

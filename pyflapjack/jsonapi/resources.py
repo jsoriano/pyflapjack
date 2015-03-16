@@ -119,38 +119,47 @@ class EntityStatusReport(Resource):
 
 class CheckStatusReport(Resource):
     path = 'status_report/checks'
+    report_path = 'status_reports'
 
 
 class EntityScheduledMaintenanceReport(Resource):
     path = 'scheduled_maintenance_report/entities'
+    report_path = 'scheduled_maintenance_reports'
 
 
 class EntityUnscheduledMaintenanceReport(Resource):
     path = 'unscheduled_maintenance_report/entities'
+    report_path = 'unscheduled_maintenance_reports'
 
 
 class CheckScheduledMaintenanceReport(Resource):
     path = 'scheduled_maintenance_report/checks'
+    report_path = 'scheduled_maintenance_reports'
 
 
 class CheckUnScheduledMaintenanceReport(Resource):
     path = 'unscheduled_maintenance_report/checks'
+    report_path = 'unscheduled_maintenance_reports'
 
 
 class EntityOutrageReport(Resource):
     path = 'outage_report/entities'
+    report_path = 'outage_reports'
 
 
 class CheckOutrageReport(Resource):
     path = 'outage_report/checks'
+    report_path = 'outage_reports'
 
 
 class EntityDowntimeReport(Resource):
     path = 'downtime_report/entities'
+    report_path = 'downtime_reports'
 
 
 class CheckDowntimeReport(Resource):
     path = 'downtime_report/checks'
+    report_path = 'downtime_reports'
 
 
 if __name__ == '__main__':
