@@ -71,8 +71,8 @@ class Entity(Resource):
 class Check(Resource):
     path = 'checks'
 
-    def __init__(self, name, entity_id, **kwargs):
-        super(Check, self).__init__(name=name, entity_id=entity_id, **kwargs)
+    def __init__(self, entity_name, id, **kwargs):
+        super(Check, self).__init__(id=id, entity_name=entity_name, **kwargs)
 
 
 class ScheduledMaintenance(Resource):
