@@ -13,6 +13,8 @@ class Resource(object):
     path = ''
     link_key = 'links'
 
+    create_success_code = 201
+
     def __init__(self, **kwargs):
         self._links = []
         links = kwargs.pop(self.link_key, {})
@@ -68,13 +70,13 @@ class Resource(object):
 
 class RelationMixin(object):
 
-    def __init__(self, relate_path, contact_id=None):
+    def __init__(self, relate_path, resource_id=None):
         self._relate_path = relate_path
-        self._contact_id = contact_id
+        self._resource_id = resource_id
 
     def __setattr__(self, key, value):
-        if key == 'contact_id':
-            self.__dict__['_contact_id'] = value
+        if key == 'resource_id':
+            self.__dict__['_resource_id'] = value
         else:
             super(RelationMixin, self).__setattr__(key, value)
 
@@ -84,6 +86,12 @@ class RelationMixin(object):
 
     @property
     def path_create(self):
-        if self._contact_id and hasattr(self, 'path'):
+        if self._resource_id and hasattr(self, 'path'):
             return '%s/%s/%s' % (
-                self._relate_path, self._contact_id, self.path)
+                self._relate_path, self._resource_id, self.path)
+
+class MaintenanceMixin(RelationMixin):
+    @property
+    def path_create(self):
+        if self._resource_id and hasattr(self, 'path'):
+            return '%s/%s' % (self.path, self._resource_id)

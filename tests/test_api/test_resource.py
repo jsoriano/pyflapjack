@@ -27,7 +27,7 @@ def test_links():
 def test_relation_mixin():
     r = RelationMixin('contacts')
     assert not r.path_create  # no path and contact id
-    r.contact_id = '100'
+    r.resource_id = '100'
     assert not r.path_create  # no path
     setattr(r, 'path', 'media')
     assert r.path_create == 'contacts/100/media'
