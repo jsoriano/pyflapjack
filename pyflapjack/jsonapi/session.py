@@ -3,7 +3,7 @@
 from urlparse import urljoin
 from requests import Session
 from .errors import check_status, ResourceRelationError, FlapjackAPIError
-from .base import RelationMixin
+from .base import RelationMixin, MaintenanceMixin
 
 
 class FlapjackSession(Session):
@@ -71,8 +71,9 @@ class FlapjackAPI(object):
             path = obj.path
         path = self._resource_url(path)
         resp = self._session.post(path, json=data)
-        check_status(201, resp, path=path)
-        return resp.json()
+        check_status(obj.create_success_code, resp, path=path)
+        if resp.text:
+            return resp.json()
 
     def query(self, resource_cls, *ids):
         """

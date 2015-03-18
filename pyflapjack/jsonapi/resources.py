@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from .base import Resource, RelationMixin
+from .base import Resource, RelationMixin, MaintenanceMixin
 
 
 class Contact(Resource):
@@ -75,8 +75,11 @@ class Check(Resource):
         super(Check, self).__init__(id=id, entity_name=entity_name, **kwargs)
 
 
-class ScheduledMaintenance(Resource):
-    def __init__(self, start_time, duration, summary):
+class ScheduledMaintenance(Resource, MaintenanceMixin):
+    create_success_code = 204
+
+    def __init__(self, start_time, duration, summary, resource_id=None):
+        MaintenanceMixin.__init__(self, self.path, resource_id)
         super(ScheduledMaintenance, self).__init__(
             start_time=start_time,
             duration=duration,
@@ -84,8 +87,11 @@ class ScheduledMaintenance(Resource):
         )
 
 
-class UnscheduledMaintenance(Resource):
-    def __init__(self, duration, summary):
+class UnscheduledMaintenance(Resource, MaintenanceMixin):
+    create_success_code = 204
+
+    def __init__(self, duration, summary, resource_id=None):
+        MaintenanceMixin.__init__(self, self.path, resource_id)
         super(UnscheduledMaintenance, self).__init__(
             duration=duration, summary=summary)
 
@@ -95,7 +101,7 @@ class EntityScheduledMaintenance(ScheduledMaintenance):
 
 
 class EntityUnscheduledMaintenance(UnscheduledMaintenance):
-    path = 'unscheduled_maintenances'
+    path = 'unscheduled_maintenances/entities'
 
 
 class CheckScheduledMaintenance(ScheduledMaintenance):
