@@ -46,5 +46,5 @@ def test_contact_related_resource(api):
         api.create(media)
     print e.value.message
     # assign contact_id
-    media.contact_id = cid
+    media.resource_id = cid
     assert media.path_create == 'contacts/%s/media' % cid
