@@ -48,16 +48,23 @@ class NotificationRule(ContactRelatedResource):
             regex_tags=None, time_restrictions=None, unknown_media=None,
             warning_media=None, critical_media=None, unknown_blackhole=None,
             warning_blackhole=None, critical_blackhole=None, **kwargs):
-        named = dict(
-            entities=None, regex_entities=None, tags=None,
-            regex_tags=None, time_restrictions=None, unknown_media=None,
-            warning_media=None, critical_media=None, unknown_blackhole=None,
-            warning_blackhole=None, critical_blackhole=None,
-        )
-        for k, v in named.iteritems():
-            if v is None:
-                named[k] = []
-        kwargs.update(named)
+
+        def default(value, default):
+            return value if value is not None else default
+
+        kwargs.update({
+            'entities': default(entities, []),
+            'regex_entities': default(regex_entities, []),
+            'tags': default(tags, []),
+            'regex_tags': default(regex_tags, []),
+            'time_restrictions': default(time_restrictions, []),
+            'unknown_media': default(unknown_media, []),
+            'warning_media': default(warning_media, []),
+            'critical_media': default(critical_media, []),
+            'unknown_blackhole': default(unknown_blackhole, []),
+            'warning_blackhole': default(warning_blackhole, []),
+            'critical_blackhole': default(critical_blackhole, []),
+        })
         super(NotificationRule, self).__init__(**kwargs)
 
 
