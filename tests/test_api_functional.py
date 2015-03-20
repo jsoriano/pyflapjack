@@ -73,17 +73,16 @@ def test_patch_attr(contact):
 
 
 @require_flapjack
-@pytest.mark.xfail(reason='flapjack API bug: patch remove link not working')
 def test_path_link(contact):
     media = Media(
-        type_='sms', address='123@123.com', interval=10, rollup_threshold=10,
+        type='sms', address='123@123.com', interval=10, rollup_threshold=10,
         contact_id=contact.id
     )
     api.create(media)
     new_contact = api.query(Contact, contact.id)[0]
     assert new_contact.media[0] == '%s_%s' % (new_contact.id, 'sms')
     # remove link
-    patch = new_contact.remove_link_patch('media', new_contact.media[0])
+    patch = new_contact.remove_link_patch('media', new_contact.media[0].id)
     api.update(Contact, [patch], new_contact.id)
     new_contact = api.query(Contact, new_contact.id)[0]
     assert len(new_contact.media) == 0

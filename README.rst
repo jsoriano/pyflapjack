@@ -12,8 +12,7 @@ Features
 * Send events to flapjack Redis
 * Flapjack JSONAPI
 
-Known bugs
-----------
-* Removing contacts' links with PATCH doesn't work. This is a bug with
-  flapjack. Upon receiving such a request, flapjack returns a 204, but the
-  contact resource remains unchanged.
+Known issues
+------------
+* Flapjack API can return success (204) when it should report fail when
+  removing links with PATCH that don't exist.
