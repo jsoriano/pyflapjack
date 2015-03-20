@@ -4,9 +4,11 @@ from .errors import ResourceAttributeError
 
 
 class ResourcePatch(dict):
-    def __init__(self, op, path, value):
+    def __init__(self, op, path, value=None):
         super(ResourcePatch, self).__init__(
-            self, op=op, path=path, value=value)
+            self, op=op, path=path)
+        if value is not None:
+            self['value'] = value
 
 
 class Resource(object):
@@ -47,7 +49,7 @@ class Resource(object):
 
     def remove_link_patch(self, link, oid):
         return ResourcePatch(
-            'remove', '/%s/0/links/%s' % (self.path, link), oid)
+            'remove', '/%s/0/links/%s/%s' % (self.path, link, oid))
 
     def to_dict(self):
         d = {}

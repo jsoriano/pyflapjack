@@ -27,6 +27,5 @@ def test_link_patch(contact):
     patch = contact.remove_link_patch('media', mid)
     assert patch == {
         'op': 'remove',
-        'path': '/contacts/0/links/media',
-        'value': mid
+        'path': '/contacts/0/links/media/' + mid,
     }
